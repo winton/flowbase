@@ -6,6 +6,11 @@
 
 set -euo pipefail
 
+# Change to project root directory (where package.json is located)
+SCRIPT_DIR="$(dirname "$0")"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")/.."
+cd "$PROJECT_ROOT"
+
 GATES_FILE="$(dirname "$0")/../config/gates.yaml"
 
 if [[ $# -lt 1 ]]; then
@@ -38,6 +43,9 @@ if [[ -z "$CMD" ]]; then
   echo "No command configured for gate: $GATE" >&2
   exit 0
 fi
+
+# Remove surrounding quotes if present
+CMD=$(echo "$CMD" | sed -E 's/^"|"$//g')
 
 echo "Running $GATE gate: $CMD"
 # shellcheck disable=SC2086
