@@ -17,6 +17,6 @@ describe('Workflow Execution', () => {
 
   it('performs type-checking before execution', () => {
     const wf: WorkflowDefinition = { id: 'wf2', name: 'Test', steps: [{ fn: 'add', args: ['a', 2] }] };
-    expect(() => runWorkflow(wf, registry)).toThrowError('Argument type mismatch for function: add at position 0');
+    expect(() => runWorkflow(wf, registry)).toThrow('Argument type mismatch for function: add at position 0');
   });
 }); 

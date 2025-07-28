@@ -16,11 +16,11 @@ describe('Workflow Type Validation', () => {
 
   it('throws on argument count mismatch', () => {
     const wfDef: WorkflowDefinition = { id: 'wf2', name: 'BadCount', steps: [{ fn: 'add', args: [1] }] };
-    expect(() => validateWorkflowTypes(wfDef, registry)).toThrowError('Argument count mismatch for function: add');
+    expect(() => validateWorkflowTypes(wfDef, registry)).toThrow('Argument count mismatch for function: add');
   });
 
   it('throws on argument type mismatch', () => {
     const wfDef: WorkflowDefinition = { id: 'wf3', name: 'BadType', steps: [{ fn: 'add', args: ['a', 2] }] };
-    expect(() => validateWorkflowTypes(wfDef, registry)).toThrowError('Argument type mismatch for function: add at position 0');
+    expect(() => validateWorkflowTypes(wfDef, registry)).toThrow('Argument type mismatch for function: add at position 0');
   });
 }); 

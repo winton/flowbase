@@ -20,11 +20,11 @@ describe('Workflow Composition API', () => {
 
   it('throws on missing function reference', () => {
     const wf = { id: 'wf1', name: 'Test WF', steps: [{ fn: 'foo', args: [] }] };
-    expect(() => validateWorkflow(wf, ['add'], ['x'])).toThrowError('Undefined function: foo');
+    expect(() => validateWorkflow(wf, ['add'], ['x'])).toThrow('Undefined function: foo');
   });
 
   it('throws on missing variable reference', () => {
     const wf = { id: 'wf1', name: 'Test WF', steps: [{ var: 'y' }] };
-    expect(() => validateWorkflow(wf, ['add'], ['x'])).toThrowError('Undefined variable: y');
+    expect(() => validateWorkflow(wf, ['add'], ['x'])).toThrow('Undefined variable: y');
   });
 }); 
