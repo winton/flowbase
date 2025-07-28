@@ -1,8 +1,7 @@
 import fs from 'fs';
-import path from 'path';
 import { program } from '../packages/cli/src/cli';
 import { bootstrapDatabase } from '../packages/db/src/index';
-import { getWorkflow, saveWorkflow } from '../packages/db/src/workflows';
+import { saveWorkflow } from '../packages/db/src/workflows';
 
 describe('CLI Command Integration', () => {
   const testDbPath = '/tmp/test-flowbase.db';

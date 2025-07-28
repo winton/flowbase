@@ -1,5 +1,5 @@
 // Flexible function implementation type that accepts various function signatures
-export type FunctionImplementation = Function;
+export type FunctionImplementation = (...args: any[]) => any;
 
 export interface FunctionDefinition {
   name: string;

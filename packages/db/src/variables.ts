@@ -29,21 +29,17 @@ export function saveVariable(db: Database.Database, variable: DBVariableDefiniti
 }
 
 export function getVariable(db: Database.Database, id: string): DBVariableDefinition {
-  try {
-    const row = db.prepare(`SELECT * FROM variables WHERE id = ?`).get(id) as DBVariableRow | undefined;
-    if (!row) {
-      throw new Error(`Variable with id '${id}' not found`);
-    }
-    
-    return {
-      id: row.id,
-      name: row.name,
-      description: row.description,
-      code: row.code
-    };
-  } catch (error) {
-    throw error;
+  const row = db.prepare(`SELECT * FROM variables WHERE id = ?`).get(id) as DBVariableRow | undefined;
+  if (!row) {
+    throw new Error(`Variable with id '${id}' not found`);
   }
+  
+  return {
+    id: row.id,
+    name: row.name,
+    description: row.description,
+    code: row.code
+  };
 }
 
 export function listVariables(db: Database.Database): DBVariableDefinition[] {

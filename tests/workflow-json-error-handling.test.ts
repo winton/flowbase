@@ -1,5 +1,5 @@
 import { loadWorkflow, WorkflowParsingError } from '../packages/core/src/workflowComposition';
-import { getWorkflow, listWorkflows, saveWorkflow } from '../packages/db/src/workflows';
+import { getWorkflow, listWorkflows } from '../packages/db/src/workflows';
 import { bootstrapDatabase } from '../packages/db/src/index';
 
 describe('Workflow JSON Parsing Error Handling', () => {

@@ -1,6 +1,6 @@
 
 import { bootstrapDatabase } from '../packages/db/src/index';
-import { saveFunction, getFunction, listFunctions, type DBFunctionDefinition } from '../packages/db/src/functions';
+import { saveFunction, getFunction, listFunctions } from '../packages/db/src/functions';
 import type Database from 'better-sqlite3';
 
 describe('Function Management', () => {

@@ -18,14 +18,6 @@ describe('TypeScript Error Handling in Code Evaluator', () => {
   });
 
   test('should handle invalid TypeScript features gracefully', () => {
-    const invalidCode = `
-      export default function() {
-        // Invalid TypeScript: undefined type
-        const x: UnknownType = "test";
-        return x;
-      }
-    `;
-    
     // Note: esbuild may allow unknown types in some cases, so let's test a more definitive error
     const definiteErrorCode = `
       export default function() {

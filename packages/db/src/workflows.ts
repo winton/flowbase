@@ -30,39 +30,35 @@ export function saveWorkflow(db: Database.Database, wf: DBWorkflowDefinition): v
 }
 
 export function getWorkflow(db: Database.Database, id: string): DBWorkflowDefinition {
-  try {
-    const row = db.prepare(`SELECT * FROM workflows WHERE id = ?`).get(id) as DBWorkflowRow | undefined;
-    if (!row) {
-      throw new Error(`Workflow with id '${id}' not found`);
-    }
-    
-    let steps: WorkflowStep[] = [];
-    try {
-      steps = JSON.parse(row.steps);
-    } catch (parseError) {
-      console.warn(`Invalid JSON in steps for workflow ${id}, using empty array`);
-      steps = [];
-    }
-
-    let onError: WorkflowStep[] | undefined;
-    if (row.onError) {
-      try {
-        onError = JSON.parse(row.onError);
-      } catch (parseError) {
-        console.warn(`Invalid JSON in onError for workflow ${id}, using undefined`);
-        onError = undefined;
-      }
-    }
-    
-    return {
-      id: row.id,
-      name: row.name,
-      steps,
-      onError
-    };
-  } catch (error) {
-    throw error;
+  const row = db.prepare(`SELECT * FROM workflows WHERE id = ?`).get(id) as DBWorkflowRow | undefined;
+  if (!row) {
+    throw new Error(`Workflow with id '${id}' not found`);
   }
+  
+  let steps: WorkflowStep[] = [];
+  try {
+    steps = JSON.parse(row.steps);
+  } catch {
+    console.warn(`Invalid JSON in steps for workflow ${id}, using empty array`);
+    steps = [];
+  }
+
+  let onError: WorkflowStep[] | undefined;
+  if (row.onError) {
+    try {
+      onError = JSON.parse(row.onError);
+    } catch {
+      console.warn(`Invalid JSON in onError for workflow ${id}, using undefined`);
+      onError = undefined;
+    }
+  }
+  
+  return {
+    id: row.id,
+    name: row.name,
+    steps,
+    onError
+  };
 }
 
 export function listWorkflows(db: Database.Database): DBWorkflowDefinition[] {
@@ -71,7 +67,7 @@ export function listWorkflows(db: Database.Database): DBWorkflowDefinition[] {
     let steps: WorkflowStep[] = [];
     try {
       steps = JSON.parse(row.steps);
-    } catch (parseError) {
+    } catch {
       console.warn(`Invalid JSON in steps for workflow ${row.id}, using empty array`);
       steps = [];
     }
@@ -80,7 +76,7 @@ export function listWorkflows(db: Database.Database): DBWorkflowDefinition[] {
     if (row.onError) {
       try {
         onError = JSON.parse(row.onError);
-      } catch (parseError) {
+      } catch {
         console.warn(`Invalid JSON in onError for workflow ${row.id}, using undefined`);
         onError = undefined;
       }

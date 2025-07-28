@@ -1,10 +1,9 @@
 import fs from 'fs';
-import path from 'path';
 import { bootstrapDatabase } from '../../db/src/index';
 import { saveWorkflow, getWorkflow } from '../../db/src/workflows';
 
 // Practical type for CLI command handlers that avoids 'any' but allows flexibility
-type CommandHandler = Function;
+type CommandHandler = (...args: any[]) => void;
 
 class CLIProgram {
   commands: Array<{ name: () => string; description?: string; action?: CommandHandler }>;

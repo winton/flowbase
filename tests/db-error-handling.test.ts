@@ -1,6 +1,6 @@
 import { bootstrapDatabase } from '../packages/db/src/index';
 import { saveFunction, getFunction } from '../packages/db/src/functions';
-import { saveVariable, getVariable } from '../packages/db/src/variables';
+import { saveVariable } from '../packages/db/src/variables';
 import { saveWorkflow, getWorkflow } from '../packages/db/src/workflows';
 import type Database from 'better-sqlite3';
 import { DBVariableDefinition } from '../packages/db/src/variables';
