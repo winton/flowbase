@@ -1,0 +1,20 @@
+# gates.yaml
+# Project-specific commands for the LLM quality gates.
+# Replace the placeholder commands below with the actual commands for your stack.
+
+version: 1.0
+
+# Command to run the entire test suite
+test: "npm test -- --ci"
+
+# Command to run the linter with auto-fix capabilities
+lint: "npm run lint"
+
+# Command to format the codebase
+format: "npm run format"
+
+# Static type checking
+type_check: "tsc --noEmit"
+
+# Dependency vulnerability scan
+security_scan: "npm audit" 

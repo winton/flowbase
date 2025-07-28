@@ -1,0 +1,335 @@
+# Replace empty backlog with seeded tasks
+- id: FEAT-1
+  content: "Bootstrap SQLite database schema for functions, variables, and workflows"
+  priority: high
+  area: backend
+  estimate: 3
+  project: core
+  kind: feature
+  epic: core-data-model-persistence
+  status: completed
+
+- id: FEAT-2
+  content: "Implement function management: load, store, and retrieve functions with I/O metadata"
+  priority: high
+  area: backend
+  estimate: 5
+  project: core
+  kind: feature
+  epic: core-data-model-persistence
+  status: completed
+
+- id: FEAT-3
+  content: "Implement variable management: load, store, and enforce Zod-typed variable schemas"
+  priority: high
+  area: backend
+  estimate: 5
+  project: core
+  kind: feature
+  epic: core-data-model-persistence
+  status: completed 
+
+- id: FEAT-4
+  content: "Implement workflow persistence: save, retrieve, and list workflow definitions with JSON-encoded steps"
+  priority: high
+  area: backend
+  estimate: 5
+  project: core
+  kind: feature
+  epic: core-data-model-persistence
+  status: completed
+
+- id: FEAT-5
+  content: "Write tests for workflow persistence: saving, retrieving, and listing workflow definitions"
+  priority: high
+  area: backend
+  estimate: 3
+  project: core
+  kind: feature
+  epic: core-data-model-persistence
+  status: completed
+
+- id: FEAT-6
+  content: "Implement core workflow composition API: load workflow JSON and validate function/variable references"
+  priority: medium
+  area: backend
+  estimate: 8
+  project: core
+  kind: feature
+  epic: core-data-model-persistence
+  status: completed 
+
+- id: FEAT-7
+  content: "Implement workflow validation: ensure each step's args match function input types"
+  priority: high
+  area: backend
+  estimate: 5
+  project: core
+  kind: feature
+  epic: workflow-execution-engine
+  status: completed
+
+- id: FEAT-8
+  content: "Write tests for workflow type-checking: mismatched arg types throw errors"
+  priority: high
+  area: backend
+  estimate: 3
+  project: core
+  kind: feature
+  epic: workflow-execution-engine
+  status: completed
+
+- id: FEAT-9
+  content: "Integrate type-checking into workflow execution: validate before run"
+  priority: medium
+  area: backend
+  estimate: 8
+  project: core
+  kind: feature
+  epic: workflow-execution-engine
+  status: completed 
+
+- id: FEAT-10
+  content: "Implement CLI wizard: prompt user to define functions, variables, and workflows interactively"
+  priority: high
+  area: cli
+  estimate: 8
+  project: core
+  kind: feature
+  epic: command-line-interface
+  status: completed
+
+- id: FEAT-11
+  content: "Implement workflow:import CLI command to load a workflow from a JSON file and save it to the database"
+  priority: medium
+  area: cli
+  estimate: 3
+  project: core
+  kind: feature
+  epic: command-line-interface
+  status: completed
+
+- id: FEAT-12
+  content: "Implement workflow:export CLI command to retrieve a workflow from the database and write it as JSON to a file"
+  priority: medium
+  area: cli
+  estimate: 3
+  project: core
+  kind: feature
+  epic: command-line-interface
+  status: completed
+
+- id: FEAT-13
+  content: "Implement TypeScript code evaluation using esbuild for dynamic function execution"
+  priority: high
+  area: backend
+  estimate: 5
+  project: core
+  kind: feature
+  epic: developer-experience-tooling
+  status: completed
+
+- id: FEAT-14
+  content: "Set up monorepo structure with package inter-dependencies and CI for linting and type-checking"
+  priority: high
+  area: infra
+  estimate: 5
+  project: core
+  kind: feature
+  epic: developer-experience-tooling
+  status: completed
+
+- id: FEAT-15
+  content: "Create automated developer setup script and update README with local development instructions"
+  priority: medium
+  area: infra
+  estimate: 3
+  project: core
+  kind: feature
+  epic: developer-experience-tooling
+  status: completed
+
+- id: MAINT-1
+  content: "Replace loose 'any' types with proper TypeScript interfaces throughout database and core modules"
+  priority: medium
+  area: backend
+  estimate: 5
+  project: maintenance
+  kind: refactor
+  status: completed
+
+- id: MAINT-2
+  content: "Add proper error handling for SQLite operations in database functions"
+  priority: high
+  area: backend
+  estimate: 3
+  project: maintenance
+  kind: refactor
+  status: completed
+
+- id: MAINT-3
+  content: "Implement variable step execution in workflow executor (currently skipped)"
+  priority: high
+  area: backend
+  estimate: 8
+  project: maintenance
+  kind: feature
+  status: completed
+
+- id: MAINT-4
+  content: "Add error handling for malformed TypeScript code in codeEvaluator"
+  priority: medium
+  area: backend
+  estimate: 3
+  project: maintenance
+  kind: refactor
+  status: completed
+
+- id: MAINT-5
+  content: "Implement actual CLI command handlers (currently placeholder implementations)"
+  priority: high
+  area: cli
+  estimate: 8
+  project: maintenance
+  kind: feature
+  status: completed
+
+- id: MAINT-6
+  content: "Define proper step interfaces instead of using 'any[]' for workflow steps"
+  priority: medium
+  area: backend
+  estimate: 5
+  project: maintenance
+  kind: refactor
+  status: completed
+
+- id: MAINT-7
+  content: "Add JSON parsing error handling in workflow loading functions"
+  priority: medium
+  area: backend
+  estimate: 2
+  project: maintenance
+  kind: refactor
+  status: completed 
+
+- id: MAINT-8
+  content: "Improve error handling and provide more specific feedback for database operations"
+  priority: medium
+  area: backend
+  estimate: 3
+  project: maintenance
+  kind: refactor
+  status: completed
+- id: MAINT-9
+  content: "Refactor VariableRegistry to use codeEvaluator for dynamic Zod schema compilation"
+  priority: medium
+  area: backend
+  estimate: 3
+  project: maintenance
+  kind: refactor
+  status: completed
+
+- id: MAINT-10
+  content: "Improve type safety in VariableRegistry by removing 'any' types and adding specific ZodError handling"
+  priority: low
+  area: backend
+  estimate: 2
+  project: maintenance
+  kind: refactor
+  status: completed 
+
+- id: FEAT-16
+  content: "Extend DBWorkflowDefinition to include an optional onError property for workflow-level error handling"
+  priority: high
+  area: backend
+  estimate: 3
+  project: core
+  kind: feature
+  epic: advanced-workflow-control
+  status: completed
+
+- id: FEAT-17
+  content: "Modify workflowExecutor to handle workflow-level onError blocks"
+  priority: high
+  area: backend
+  estimate: 5
+  project: core
+  kind: feature
+  epic: advanced-workflow-control
+  depends_on: [FEAT-16]
+  status: completed
+
+- id: FEAT-18
+  content: "Update workflowValidation to validate onError steps"
+  priority: medium
+  area: backend
+  estimate: 2
+  project: core
+  kind: feature
+  epic: advanced-workflow-control
+  depends_on: [FEAT-16]
+  status: pending
+
+- id: FEAT-19
+  content: "Extend workflow step definition to include an optional onError property for step-level error handling"
+  priority: high
+  area: backend
+  estimate: 3
+  project: core
+  kind: feature
+  epic: advanced-workflow-control
+  status: pending
+
+- id: FEAT-20
+  content: "Modify workflowExecutor to prioritize step-level onError handlers"
+  priority: high
+  area: backend
+  estimate: 5
+  project: core
+  kind: feature
+  epic: advanced-workflow-control
+  depends_on: [FEAT-19]
+  status: pending
+
+- id: FEAT-21
+  content: "Extend step definition in workflowComposition.ts to include an optional retry object"
+  priority: high
+  area: backend
+  estimate: 3
+  project: core
+  kind: feature
+  epic: advanced-workflow-control
+  status: pending
+
+- id: FEAT-22
+  content: "Update DBWorkflowDefinition to persist retry settings"
+  priority: medium
+  area: backend
+  estimate: 2
+  project: core
+  kind: feature
+  epic: advanced-workflow-control
+  depends_on: [FEAT-21]
+  status: pending
+
+- id: FEAT-23
+  content: "Modify workflowExecutor to handle step retries with configurable delay"
+  priority: high
+  area: backend
+  estimate: 8
+  project: core
+  kind: feature
+  epic: advanced-workflow-control
+  depends_on: [FEAT-21]
+  status: pending
+
+- id: FEAT-24
+  content: "Implement exponential backoff for retries in workflowExecutor"
+  priority: medium
+  area: backend
+  estimate: 3
+  project: core
+  kind: feature
+  epic: advanced-workflow-control
+  depends_on: [FEAT-23]
+  status: pending 
