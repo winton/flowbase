@@ -6,7 +6,7 @@ describe('Workflow Composition API', () => {
   it('parses a JSON-encoded workflow definition', () => {
     const json = JSON.stringify({ id: 'wf1', name: 'Test WF', steps: [{ fn: 'add', args: [1, 2] }] });
     const wf = loadWorkflow(json);
-    expect(wf).toEqual({ id: 'wf1', name: 'Test WF', steps: [{ fn: 'add', args: [1, 2] }] });
+    expect(wf).toEqual({ id: 'wf1', name: 'Test WF', steps: [{ fn: 'add', args: [1, 2] }], onError: [] });
   });
 
   it('throws on invalid JSON', () => {

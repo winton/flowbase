@@ -15,7 +15,7 @@ Core workflow execution and validation logic:
 - `FunctionRegistry`: manages function definitions with type metadata
 - `workflowComposition`: loads and validates workflow JSON definitions
 - `workflowValidation`: type-checks workflow steps against function signatures
-- `workflowExecutor`: executes validated workflows step-by-step
+- `workflowExecutor`: executes validated workflows step-by-step, with support for step-level error handling and retries
 - `codeEvaluator`: evaluates TypeScript code using esbuild for dynamic function execution
 - `VariableRegistry`: stores and validates variables using Zod schemas
 

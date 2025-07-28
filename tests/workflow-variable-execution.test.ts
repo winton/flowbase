@@ -11,7 +11,7 @@ describe('Workflow Variable Step Execution', () => {
     variableRegistry = new VariableRegistry();
   });
 
-  it('should execute variable steps to set values', () => {
+  it('should execute variable steps to set values', async () => {
     // Register a variable schema
     variableRegistry.register('userName', 'z.string().min(1)', 'string');
     
@@ -25,12 +25,10 @@ describe('Workflow Variable Step Execution', () => {
     };
 
     // This should fail initially because variable execution is not implemented
-    expect(() => {
-      runWorkflow(workflow, functionRegistry, variableRegistry);
-    }).not.toThrow();
+    await expect(runWorkflow(workflow, functionRegistry, variableRegistry)).resolves.toBeDefined();
   });
 
-  it('should validate variable values against Zod schemas', () => {
+  it('should validate variable values against Zod schemas', async () => {
     // Register a strict email variable  
     variableRegistry.register('userEmail', 'z.string().email()', 'string');
     
@@ -43,12 +41,10 @@ describe('Workflow Variable Step Execution', () => {
     };
 
     // Should throw validation error
-    expect(() => {
-      runWorkflow(workflow, functionRegistry, variableRegistry);
-    }).toThrow('validation failed');
+    await expect(runWorkflow(workflow, functionRegistry, variableRegistry)).rejects.toThrow('validation failed');
   });
 
-  it('should pass validated variable values to subsequent function steps', () => {
+  it('should pass validated variable values to subsequent function steps', async () => {
     // Register variable and function
     variableRegistry.register('message', 'z.string()', 'string');
     functionRegistry.register('uppercase', (...args: unknown[]) => (args[0] as string).toUpperCase(), ['string'], 'string');
@@ -62,11 +58,11 @@ describe('Workflow Variable Step Execution', () => {
       ]
     };
 
-    const results = runWorkflow(workflow, functionRegistry, variableRegistry);
+    const results = await runWorkflow(workflow, functionRegistry, variableRegistry);
     expect(results).toEqual(['hello world', 'HELLO WORLD']);
   });
 
-  it('should support variable references in function arguments', () => {
+  it('should support variable references in function arguments', async () => {
     // Register variables and functions
     variableRegistry.register('firstName', 'z.string()', 'string');
     variableRegistry.register('lastName', 'z.string()', 'string');
@@ -85,7 +81,7 @@ describe('Workflow Variable Step Execution', () => {
       ]
     };
 
-    const results = runWorkflow(workflow, functionRegistry, variableRegistry);
+    const results = await runWorkflow(workflow, functionRegistry, variableRegistry);
     expect(results).toEqual(['John', 'Doe', 'John Doe']);
   });
 }); 

@@ -24,6 +24,8 @@ export function validateWorkflowTypes(
           throw new Error(`Argument type mismatch for function: ${step.fn} at position ${i}`);
         }
       }
+    } else if ('var' in step) {
+      // No type validation for var steps, as their value is dynamic
     }
   }
 } 

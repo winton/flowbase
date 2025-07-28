@@ -16,24 +16,49 @@ export interface FunctionDefinition {
 
 ### Variable (VariableRegistry.ts)
 ```ts
-export interface Variable<T> {
-  id: string;
+export interface VariableDefinition {
   name: string;
-  schema: z.ZodType<T>;
-  value: T;
+  schema: z.ZodSchema<unknown>;
+  zodCode: string;
+  type: string;
 }
 ```
 
 ### WorkflowDefinition (workflowComposition.ts)
 ```ts
+export interface RetryOptions {
+  maxAttempts?: number;
+  delay?: number;
+  backoffFactor?: number;
+}
+
+export interface FunctionStep {
+  fn: string;
+  args?: unknown[];
+  output?: string;
+  onError?: WorkflowStep[];
+  retry?: RetryOptions;
+}
+
+export interface VariableStep {
+  var: string;
+  value?: unknown;
+  output?: string;
+  onError?: WorkflowStep[];
+  retry?: RetryOptions;
+}
+
+export type WorkflowStep = FunctionStep | VariableStep;
+
 export interface WorkflowDefinition {
   id: string;
   name: string;
-  steps: { fn: string, args: Record<string, any> }[] | { var: string, value: any }[];
+  steps: WorkflowStep[];
+  onError?: WorkflowStep[];
 }
 ```
 
-## Database Module (`packages/db/src/`)
+## Database Module (`packages/db/src`)
 
 ### DBFunctionDefinition (functions.ts)
 ```ts
@@ -62,7 +87,8 @@ export interface DBVariableDefinition {
 export interface DBWorkflowDefinition {
   id: string;
   name: string;
-  steps: { fn: string, args: Record<string, any> }[] | { var: string, value: any }[]; // JSON-serialized workflow steps
+  steps: WorkflowStep[];
+  onError?: WorkflowStep[];
 }
 ```
 

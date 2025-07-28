@@ -13,5 +13,5 @@ Action:
    * Perform a doc-sync scan (documentation drift).
    * Append findings as tasks to `config/todos.yaml` (`project: maintenance`).
 3. Show diffs for updated `knowledge/` files and `todos.yaml` (or say `Maintenance complete :sparkles:` if nothing changed).
-4. Update `config/state.yaml` (`current_step: 5`, clear context).
+4. Update `config/state.yaml` (`current_step: 4` **if actionable `pending` tasks exist in `config/todos.yaml`, otherwise `current_step: 5`**, clear `epic_slug`, `task_id`).
 5. Show diff for `state.yaml`. 

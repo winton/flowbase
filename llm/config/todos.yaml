@@ -278,7 +278,7 @@
   project: core
   kind: feature
   epic: advanced-workflow-control
-  status: pending
+  status: completed
 
 - id: FEAT-20
   content: "Modify workflowExecutor to prioritize step-level onError handlers"
@@ -289,7 +289,7 @@
   kind: feature
   epic: advanced-workflow-control
   depends_on: [FEAT-19]
-  status: pending
+  status: completed
 
 - id: FEAT-21
   content: "Extend step definition in workflowComposition.ts to include an optional retry object"
@@ -299,7 +299,7 @@
   project: core
   kind: feature
   epic: advanced-workflow-control
-  status: pending
+  status: completed
 
 - id: FEAT-22
   content: "Update DBWorkflowDefinition to persist retry settings"
@@ -321,7 +321,7 @@
   kind: feature
   epic: advanced-workflow-control
   depends_on: [FEAT-21]
-  status: pending
+  status: completed
 
 - id: FEAT-24
   content: "Implement exponential backoff for retries in workflowExecutor"
@@ -332,4 +332,22 @@
   kind: feature
   epic: advanced-workflow-control
   depends_on: [FEAT-23]
+  status: completed
+
+- id: MAINT-11
+  content: "Review documentation for drift and accuracy after advanced workflow control implementation"
+  priority: low
+  area: docs
+  estimate: 2
+  project: maintenance
+  kind: task
+  status: pending 
+
+- id: MAINT-12
+  content: "Replace generic TODO types in tests/typescript-interfaces.test.ts with proper generics for clarity"
+  priority: low
+  area: tests
+  estimate: 1
+  project: maintenance
+  kind: refactor
   status: pending 

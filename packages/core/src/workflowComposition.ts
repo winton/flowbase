@@ -1,14 +1,24 @@
 // Define proper step interfaces for workflows
+export interface RetryOptions {
+  maxAttempts?: number;
+  delay?: number;
+  backoffFactor?: number;
+}
+
 export interface FunctionStep {
   fn: string;
   args?: unknown[];
   output?: string;
+  onError?: WorkflowStep[]; // Add onError to FunctionStep
+  retry?: RetryOptions; // Add retry to FunctionStep
 }
 
 export interface VariableStep {
   var: string;
   value?: unknown;
   output?: string;
+  onError?: WorkflowStep[]; // Add onError to VariableStep
+  retry?: RetryOptions; // Add retry to VariableStep
 }
 
 export type WorkflowStep = FunctionStep | VariableStep;
@@ -75,7 +85,8 @@ export function loadWorkflow(json: string): WorkflowDefinition {
   return {
     id: workflow.id,
     name: workflow.name,
-    steps: workflow.steps as WorkflowStep[]
+    steps: workflow.steps as WorkflowStep[],
+    onError: (workflow.onError || []) as WorkflowStep[] // Ensure onError is an array, even if empty or undefined
   };
 }
 
@@ -84,7 +95,9 @@ export function validateWorkflow(
   validFunctions: string[],
   validVariables: string[]
 ): void {
-  for (const step of wf.steps) {
+  const allSteps = [...wf.steps, ...(wf.onError || [])]; // Include onError steps in validation
+
+  for (const step of allSteps) {
     if ('fn' in step) {
       if (!validFunctions.includes(step.fn)) {
         throw new Error(`Undefined function: ${step.fn}`);
@@ -93,6 +106,11 @@ export function validateWorkflow(
       if (!validVariables.includes(step.var)) {
         throw new Error(`Undefined variable: ${step.var}`);
       }
+    }
+
+    // Recursively validate step-level onError blocks if they exist
+    if (step.onError && step.onError.length > 0) {
+      validateWorkflow({ id: '', name: '', steps: step.onError }, validFunctions, validVariables);
     }
   }
 } 
