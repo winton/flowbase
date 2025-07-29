@@ -50,12 +50,10 @@ describe('TypeScript Interface Definitions', () => {
     }).not.toThrow();
   });
 
-  test('function implementations should use proper generic types instead of any', () => {
-    // Currently using any[] for flexibility, but this test ensures we're aware of it
+  test('function implementation type should use generic Args and Return', () => {
     const sourceCode = fs.readFileSync('./packages/core/src/FunctionRegistry.ts', 'utf8');
-    expect(sourceCode).toMatch(/args:\s*any\[\]/);
-    expect(sourceCode).toMatch(/=>\s*any/);
-    // TODO: Consider using proper generic types in the future for better type safety
+    expect(sourceCode).toMatch(/export type FunctionImplementation<Args extends unknown\[\] = unknown\[\], Return = unknown>/);
+    expect(sourceCode).toMatch(/\(\.\.\.args: Args\) => Return/);
   });
 
   test('variable registry should use proper schema types instead of any', () => {

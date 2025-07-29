@@ -2,6 +2,9 @@ import fs from 'fs';
 import { bootstrapDatabase } from '../../db/src/index';
 import { saveWorkflow, getWorkflow } from '../../db/src/workflows';
 import { saveVariable } from '../../db/src/variables';
+import { saveFunction } from '../../db/src/functions';
+import { transformSync } from 'esbuild';
+import { FunctionRegistry } from '../../core/src/FunctionRegistry';
 
 // Practical type for CLI command handlers that avoids 'any' but allows flexibility
 type CommandHandler = (...args: any[]) => void;
@@ -154,6 +157,41 @@ program
 program
   .command('fn:add')
   .description('Define and persist a function definition')
-  .action(() => {
-    console.log('fn:add not implemented yet');
+  .action((filePath: string) => {
+    try {
+      if (!fs.existsSync(filePath)) {
+        throw new Error('File not found: ' + filePath);
+      }
+
+      // Read and compile TypeScript file
+      const code = fs.readFileSync(filePath, 'utf8');
+      const transformResult = transformSync(code, { loader: 'ts', format: 'cjs' });
+
+      // Evaluate compiled JavaScript
+      const moduleObj = { exports: {} as Record<string, unknown> };
+      const execFn = new Function('exports', 'module', 'require', transformResult.code);
+      execFn(moduleObj.exports, moduleObj, require);
+
+      // Register and persist each exported function
+      const registry = new FunctionRegistry();
+      const db = bootstrapDatabase(getDbPath());
+      for (const [name, value] of Object.entries(moduleObj.exports)) {
+        if (typeof value === 'function') {
+          registry.register(name, value as (...args: any[]) => any);
+          saveFunction(db, {
+            id: name,
+            name,
+            description: null,
+            inputVars: [],
+            outputVars: [],
+            code
+          });
+          console.log(`✅ Added function: ${name}`);
+        }
+      }
+      db.close();
+    } catch (error) {
+      console.error('❌ fn:add failed:', (error as Error).message);
+      throw error;
+    }
   }); 
