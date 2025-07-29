@@ -1,18 +1,1 @@
-- id: FEAT-26
-  content: "Implement fn:add CLI command to load TypeScript function files and persist function definitions"
-  priority: medium
-  area: cli
-  estimate: 5
-  project: core
-  kind: feature
-  epic: command-line-interface
-  status: pending
-
-- id: MAINT-12
-  content: "Replace generic TODO types in tests/typescript-interfaces.test.ts with proper generics for clarity"
-  priority: low
-  area: tests
-  estimate: 1
-  project: maintenance
-  kind: refactor
-  status: pending 
+[] 

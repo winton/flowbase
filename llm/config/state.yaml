@@ -1,4 +1,5 @@
 version: 1
-current_step: 4
-epic_slug: "command-line-interface"
-task_id: "FEAT-26" 
+current_step: 5
+epic_slug: ""
+task_id: ""
+detected: true 
