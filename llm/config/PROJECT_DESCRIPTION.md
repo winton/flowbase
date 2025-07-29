@@ -10,6 +10,7 @@
 * Define typed variables with dynamic schemas
 * Compose workflows as plain JSON
 * Execute workflows and trace step execution
+* Support configurable error handling and step-level retries
 * All text-based, local, and dev-friendly
 
 ---
@@ -24,6 +25,8 @@
 | Typecheck and execute workflows               | ✅        |
 | Minimal CLI for defining/running workflows    | ✅        |
 | Output trace/logs from execution              | ✅        |
+| Configurable error handling (workflow- & step-level onError) | ✅        |
+| Step-level retries with backoff                | ✅        |
 | AI-ready structure for later integration      | ✅        |
 
 ---
@@ -127,14 +130,14 @@ flowbase/
 ## 🖥️ MVP CLI Commands
 
 ```bash
-# Add a variable
-flowbase var:add --id UserName --code "z.string().brand('UserName')"
+# Interactive wizard for creating workflows
+flowbase wizard
 
-# Add a function
-flowbase fn:add --file ./functions/greetUser.ts
+# Import a workflow
+flowbase workflow:import <file.json>
 
-# Run a workflow
-flowbase run ./workflows/basicGreeting.json
+# Export a workflow
+flowbase workflow:export <workflow-id> <output.json>
 ```
 
 ---

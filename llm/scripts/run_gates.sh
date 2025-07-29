@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# cross-shell wrapper that executes one or all quality gate commands defined in llm/config/gates.yaml
+# cross-shell wrapper that executes one or all quality gate commands defined in llm/state/gates.yaml
 # Usage: ./llm/scripts/run_gates.sh <gate>
 # Example: ./llm/scripts/run_gates.sh test
 # Example: ./llm/scripts/run_gates.sh all  # runs all gates
@@ -11,7 +11,7 @@ SCRIPT_DIR="$(dirname "$0")"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")/.."
 cd "$PROJECT_ROOT"
 
-GATES_FILE="$(dirname "$0")/../config/gates.yaml"
+GATES_FILE="$(dirname "$0")/../state/gates.yaml"
 
 if [[ $# -lt 1 ]]; then
   MODE="all"

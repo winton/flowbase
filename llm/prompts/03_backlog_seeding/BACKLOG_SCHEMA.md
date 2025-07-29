@@ -1,6 +1,6 @@
-# Backlog Schema (`llm/config/todos.yaml`)
+# Backlog Schema (`llm/state/todos.yaml`)
 
-This project stores its engineering backlog in the YAML file `llm/config/todos.yaml`. The file contains an **ordered list** of task objects.
+This project stores its engineering backlog in the YAML file `llm/state/todos.yaml`. The file contains an **ordered list** of task objects.
 
 ## Task Object Fields
 
