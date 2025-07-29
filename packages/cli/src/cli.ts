@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { bootstrapDatabase } from '../../db/src/index';
 import { saveWorkflow, getWorkflow } from '../../db/src/workflows';
+import { saveVariable } from '../../db/src/variables';
 
 // Practical type for CLI command handlers that avoids 'any' but allows flexibility
 type CommandHandler = (...args: any[]) => void;
@@ -133,4 +134,26 @@ program
       console.error('❌ Export failed:', (error as Error).message);
       throw error; // Re-throw for testing
     }
+  }); 
+
+program
+  .command('var:add')
+  .description('Define and persist a variable')
+  .action((id: string, name: string, code: string) => {
+    try {
+      const db = bootstrapDatabase(getDbPath());
+      saveVariable(db, { id, name, description: null, code });
+      db.close();
+      console.log(`✅ Successfully added variable: ${id}`);
+    } catch (error) {
+      console.error('❌ var:add failed:', (error as Error).message);
+      throw error;
+    }
+  }); 
+
+program
+  .command('fn:add')
+  .description('Define and persist a function definition')
+  .action(() => {
+    console.log('fn:add not implemented yet');
   }); 

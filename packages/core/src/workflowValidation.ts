@@ -1,12 +1,15 @@
 import { WorkflowDefinition } from './workflowComposition';
 import { FunctionRegistry } from './FunctionRegistry';
+import { WorkflowStep } from './workflowComposition';
 
 export function validateWorkflowTypes(
   wf: WorkflowDefinition,
   registry: FunctionRegistry
 ): void {
-  const allSteps = [...wf.steps, ...(wf.onError ?? [])];
-  for (const step of allSteps) {
+  // Recursively validate main steps and any onError handlers
+  const queue: WorkflowStep[] = [...wf.steps, ...(wf.onError ?? [])];
+  while (queue.length > 0) {
+    const step = queue.shift()!;
     if ('fn' in step) {
       const fnDef = registry.get(step.fn);
       if (!fnDef) {
@@ -26,6 +29,9 @@ export function validateWorkflowTypes(
       }
     } else if ('var' in step) {
       // No type validation for var steps, as their value is dynamic
+    }
+    if (step.onError && step.onError.length > 0) {
+      queue.push(...step.onError);
     }
   }
 } 
